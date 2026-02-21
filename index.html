@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Василиса — 10 лет 🎉</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+    font-family:'Montserrat',sans-serif;
+    background:#050510;
+    color:white;
+    overflow-x:hidden;
+}
+canvas{position:fixed;top:0;left:0;z-index:-1}
+
+/* Цвета */
+:root{
+    --blue:#00f0ff;
+    --purple:#a855f7;
+    --pink:#ff00c8;
+}
+
+/* HERO */
+.hero{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+
+.hero h1{
+    font-size:4rem;
+    font-weight:800;
+    background:linear-gradient(90deg,var(--blue),var(--purple),var(--pink));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    animation:glow 3s infinite alternate;
+}
+
+.name{
+    font-size:2rem;
+    margin-top:20px;
+    position:relative;
+    color:var(--purple);
+    text-shadow:0 0 20px var(--purple);
+}
+
+.name::before{
+    content:"👑";
+    position:absolute;
+    top:-35px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:2rem;
+    animation:float 2s infinite ease-in-out;
+}
+
+@keyframes glow{
+    from{text-shadow:0 0 20px var(--purple)}
+    to{text-shadow:0 0 45px var(--blue)}
+}
+
+@keyframes float{
+    0%{transform:translate(-50%,0)}
+    50%{transform:translate(-50%,-8px)}
+    100%{transform:translate(-50%,0)}
+}
+
+.countdown{
+    margin-top:30px;
+    font-size:1.3rem;
+    opacity:0.85;
+}
+
+/* Программа */
+.schedule{
+    padding:80px 10%;
+}
+
+.schedule h2{
+    font-size:2.5rem;
+    margin-bottom:40px;
+    background: linear-gradient(90deg,var(--purple),var(--blue));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+/* Карточки событий */
+.event{
+    margin-bottom:25px;
+    padding:25px;
+    border-radius:15px;
+    backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,0.1);
+    transition:0.4s ease;
+    opacity:0;
+    transform:translateY(40px);
+}
+
+.event.visible{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.event:hover{
+    box-shadow:0 0 25px var(--purple);
+    transform:translateY(-6px) scale(1.02);
+}
+
+.time{
+    color:var(--blue);
+    font-weight:600;
+    margin-bottom:8px;
+}
+
+.event p{
+    font-size:0.85rem;
+    opacity:0.7;
+    margin-top:5px;
+}
+
+/* Таймлапс внизу */
+.slideshow{
+    text-align:center;
+    margin:80px 0 120px 0;
+}
+
+.slideshow img{
+    width:320px;
+    max-width:90%;
+    border-radius:20px;
+    box-shadow:0 0 30px var(--purple);
+    transition:opacity 0.6s ease-in-out, transform 3s ease-in-out;
+}
+</style>
+</head>
+<body>
+
+<audio autoplay loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<canvas id="stars"></canvas>
+
+<section class="hero">
+<h1>Юбилей 10 лет 🎂</h1>
+<div class="name">Василиса</div>
+<div class="countdown" id="countdown"></div>
+</section>
+
+<section class="schedule">
+<h2>Программа дня</h2>
+
+<div class="event">
+<div class="time">14:00</div>
+<h3>Встреча гостей</h3>
+<p>Музыка, фотозона и приветственные сладости</p>
+</div>
+
+<div class="event">
+<div class="time">15:00</div>
+<h3>Игры и конкурсы</h3>
+<p>Командные и индивидуальные игры для всех гостей</p>
+<ul style="font-size:0.8rem; opacity:0.6; margin-top:5px;">
+<li>Музыкальная угадайка</li>
+<li>Танцевальный челлендж</li>
+<li>Конкурс «Угадай факт об имениннице»</li>
+<li>Весёлые эстафеты</li>
+<li>Мини-викторины с призами</li>
+</ul>
+<p style="font-size:0.8rem; opacity:0.6; margin-top:5px;">
+Все участники получат сладкие подарки и отличное настроение ✨
+</p>
+</div>
+
+<div class="event" id="cake">
+<div class="time">16:30</div>
+<h3>Шоу-сюрприз</h3>
+<p>Специальное выступление для именинницы</p>
+</div>
+
+<div class="event">
+<div class="time">18:00</div>
+<h3>Торт и поздравления</h3>
+<p>Загадываем желание и задуваем свечи 🎉</p>
+</div>
+
+</section>
+
+<!-- Таймлапс ниже событий -->
+<section class="slideshow">
+<h2>Как росла наша звёздочка ✨</h2>
+<img id="slide" src="photos/1.jpg">
+</section>
+
+<div class="footer">Сделано с любовью 💜</div>
+
+<script>
+// Звёзды
+const canvas=document.getElementById("stars");
+const ctx=canvas.getContext("2d");
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+
+let stars=[];
+for(let i=0;i<250;i++){
+stars.push({x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+size:Math.random()*2+1,
+speed:Math.random()*0.5});
+}
+
+function draw(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+stars.forEach(s=>{
+ctx.fillStyle="#a855f7";
+ctx.fillRect(s.x,s.y,s.size,s.size);
+s.y+=s.speed;
+if(s.y>canvas.height){s.y=0;s.x=Math.random()*canvas.width;}
+});
+requestAnimationFrame(draw);
+}
+draw();
+
+// Появление событий
+const events=document.querySelectorAll('.event');
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(e=>{
+if(e.isIntersecting)e.target.classList.add('visible');
+});
+});
+events.forEach(e=>observer.observe(e));
+
+// Конфетти с разбросом
+const cake=document.getElementById("cake");
+cake.addEventListener("mouseenter",()=>{
+for(let i=0;i<100;i++){
+let conf=document.createElement("div");
+conf.style.position="fixed";
+conf.style.width="8px";
+conf.style.height="8px";
+conf.style.background=`hsl(${Math.random()*360},100%,60%)`;
+conf.style.left=Math.random()*100+"vw";
+conf.style.top="-10px";
+conf.style.zIndex=9999;
+let angle=(Math.random()*Math.PI/3)-Math.PI/6;
+let speed=Math.random()*5+2;
+let vx=Math.sin(angle)*speed;
+let vy=Math.cos(angle)*speed;
+conf.style.transition="transform 3s linear, opacity 3s linear";
+document.body.appendChild(conf);
+setTimeout(()=>{
+conf.style.transform=`translate(${vx*60}px,${vy*60}vh) rotate(${Math.random()*720}deg)`;
+conf.style.opacity=0;
+},10);
+setTimeout(()=>conf.remove(),3000);
+}
+});
+
+// Обратный отсчёт
+function updateCountdown(){
+let now=new Date();
+let year=now.getFullYear();
+let birthday=new Date(year,2,29);
+if(now>birthday) birthday=new Date(year+1,2,29);
+let diff=birthday-now;
+let d=Math.floor(diff/1000/60/60/24);
+let h=Math.floor(diff/1000/60/60)%24;
+let m=Math.floor(diff/1000/60)%60;
+let s=Math.floor(diff/1000)%60;
+document.getElementById("countdown").innerHTML=
+`До праздника: ${d}д ${h}ч ${m}м ${s}с`;
+}
+setInterval(updateCountdown,1000);
+
+// Таймлапс 20 фото
+let totalPhotos=20;
+let current=1;
+setInterval(()=>{
+current++;
+if(current>totalPhotos)current=1;
+let img=document.getElementById("slide");
+img.style.opacity=0;
+setTimeout(()=>{
+img.src=`photos/${current}.jpg`;
+img.style.opacity=1;
+img.style.transform="scale(1.05)";
+setTimeout(()=>img.style.transform="scale(1)",2500);
+},300);
+},2500);
+</script>
+</body>
+</html>
