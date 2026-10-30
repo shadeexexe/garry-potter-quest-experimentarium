@@ -1,299 +1,148 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Василиса — 10 лет 🎉</title>
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101019">
+<title>Квест Гарри Поттер — Экспериментарий, Анапа</title>
+<meta name="description" content="Магический квест для детей 8–10 лет в Экспериментарии в Анапе. Для дня рождения, друзей или одноклассников. 1 час, 1000 ₽ с ребёнка, группа от 6 детей.">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&display=swap');
-
-*{margin:0;padding:0;box-sizing:border-box}
-body{
-    font-family:'Montserrat',sans-serif;
-    background:#050510;
-    color:white;
-    overflow-x:hidden;
-}
-canvas{position:fixed;top:0;left:0;z-index:-1}
-
-/* Цвета */
-:root{
-    --blue:#00f0ff;
-    --purple:#a855f7;
-    --pink:#ff00c8;
-}
-
-/* HERO */
-.hero{
-    height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-}
-
-.hero h1{
-    font-size:4rem;
-    font-weight:800;
-    background:linear-gradient(90deg,var(--blue),var(--purple),var(--pink));
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-    animation:glow 3s infinite alternate;
-}
-
-.name{
-    font-size:2rem;
-    margin-top:20px;
-    position:relative;
-    color:var(--purple);
-    text-shadow:0 0 20px var(--purple);
-}
-
-.name::before{
-    content:"👑";
-    position:absolute;
-    top:-35px;
-    left:50%;
-    transform:translateX(-50%);
-    font-size:2rem;
-    animation:float 2s infinite ease-in-out;
-}
-
-@keyframes glow{
-    from{text-shadow:0 0 20px var(--purple)}
-    to{text-shadow:0 0 45px var(--blue)}
-}
-
-@keyframes float{
-    0%{transform:translate(-50%,0)}
-    50%{transform:translate(-50%,-8px)}
-    100%{transform:translate(-50%,0)}
-}
-
-.countdown{
-    margin-top:30px;
-    font-size:1.3rem;
-    opacity:0.85;
-}
-
-/* Программа */
-.schedule{
-    padding:80px 10%;
-}
-
-.schedule h2{
-    font-size:2.5rem;
-    margin-bottom:40px;
-    background: linear-gradient(90deg,var(--purple),var(--blue));
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-}
-
-/* Карточки событий */
-.event{
-    margin-bottom:25px;
-    padding:25px;
-    border-radius:15px;
-    backdrop-filter:blur(10px);
-    border:1px solid rgba(255,255,255,0.1);
-    transition:0.4s ease;
-    opacity:0;
-    transform:translateY(40px);
-}
-
-.event.visible{
-    opacity:1;
-    transform:translateY(0);
-}
-
-.event:hover{
-    box-shadow:0 0 25px var(--purple);
-    transform:translateY(-6px) scale(1.02);
-}
-
-.time{
-    color:var(--blue);
-    font-weight:600;
-    margin-bottom:8px;
-}
-
-.event p{
-    font-size:0.85rem;
-    opacity:0.7;
-    margin-top:5px;
-}
-
-/* Таймлапс внизу */
-.slideshow{
-    text-align:center;
-    margin:80px 0 120px 0;
-}
-
-.slideshow img{
-    width:320px;
-    max-width:90%;
-    border-radius:20px;
-    box-shadow:0 0 30px var(--purple);
-    transition:opacity 0.6s ease-in-out, transform 3s ease-in-out;
-}
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@600;700;800&display=swap');
+:root{--bg:#100d12;--panel:#1b151b;--panel2:#261c25;--ink:#fff8e9;--muted:#c9bac0;--gold:#d6ad62;--gold2:#f3d99c;--wine:#541b2b;--wine2:#762a3d;--green:#a8c9ad;--line:rgba(214,173,98,.28)}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:76px}body{margin:0;background:var(--bg);color:var(--ink);font-family:Manrope,Arial,sans-serif;line-height:1.55}a{color:inherit;text-decoration:none}button,input,select{font:inherit}button,a,.btn{-webkit-tap-highlight-color:transparent}.wrap{width:min(1120px,calc(100% - 40px));margin:auto}
+.topbar{position:sticky;top:0;z-index:20;background:rgba(16,13,18,.94);backdrop-filter:blur(16px);border-bottom:1px solid rgba(214,173,98,.18)}.nav{min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.03em;font-size:14px}.crest{width:38px;height:38px;border:1px solid var(--gold);border-radius:50%;display:grid;place-items:center;color:var(--gold2);font-size:21px;box-shadow:0 0 22px rgba(214,173,98,.18)}.brand small{display:block;font-size:9px;color:var(--muted);font-weight:600;letter-spacing:.15em;text-transform:uppercase}.navlinks{display:flex;align-items:center;gap:22px;font-size:13px;color:#e7dce0}.navlinks a:hover{color:var(--gold2)}
+.btn{border:1px solid rgba(255,232,180,.28);display:inline-flex;justify-content:center;align-items:center;gap:10px;padding:15px 22px;border-radius:9px;background:linear-gradient(135deg,#e8c77f,#c99c50);color:#24151a;font-weight:800;cursor:pointer;box-shadow:0 8px 24px rgba(172,119,48,.18);transition:transform .2s,box-shadow .2s}.btn:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(214,173,98,.25)}.btn:disabled{opacity:.65;cursor:wait;transform:none}.btn.secondary{background:transparent;color:var(--gold2);border:1px solid rgba(214,173,98,.55);box-shadow:none}.btn.secondary:hover{background:rgba(214,173,98,.08)}
+.hero{position:relative;overflow:hidden;padding:46px 0 52px;background:radial-gradient(ellipse at 80% 30%,rgba(112,34,57,.38),transparent 42%),radial-gradient(ellipse at 12% 0%,rgba(214,173,98,.10),transparent 35%),linear-gradient(130deg,#100d12,#21131c 58%,#120e14)}.hero:before{content:"";position:absolute;inset:0;opacity:.17;pointer-events:none;background-image:radial-gradient(#f3d99c 1px,transparent 1.5px);background-size:83px 83px}.hero-grid{position:relative;display:grid;grid-template-columns:1fr .92fr;align-items:center;gap:34px}.eyebrow{display:inline-flex;align-items:center;gap:9px;color:var(--gold2);font-size:11px;font-weight:800;letter-spacing:.15em;text-transform:uppercase}.eyebrow:before{content:"";width:24px;height:1px;background:var(--gold)}h1,h2,h3,p{margin-top:0}h1,h2{font-family:'Cormorant Garamond',Georgia,serif}h1{font-size:clamp(48px,6vw,76px);line-height:.98;letter-spacing:-.025em;margin:18px 0}.gold{color:var(--gold2)}.lead{max-width:570px;color:#e6d9dc;font-size:16px;margin-bottom:22px}.hero-actions{display:flex;gap:11px;flex-wrap:wrap}.quickfacts{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}.pill{font-size:11px;color:#f3e8e5;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.045);border-radius:999px;padding:7px 11px}
+.hero-art{position:relative;min-height:420px;border:1px solid rgba(214,173,98,.42);border-radius:180px 180px 18px 18px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.4),0 0 50px rgba(104,37,56,.18);background:#241820}.hero-art img{width:100%;height:100%;min-height:420px;position:absolute;inset:0;object-fit:cover;object-position:center}.hero-art:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,10,15,.04),rgba(15,10,15,.30) 45%,rgba(15,10,15,.88))}.hero-caption{position:absolute;z-index:2;left:20px;right:20px;bottom:22px;text-align:center;color:#fff6df;text-shadow:0 2px 12px #000}.hero-caption strong{display:block;font:700 30px 'Cormorant Garamond',Georgia,serif;color:var(--gold2)}.hero-caption span{font-size:12px}
+.section{padding:72px 0}.section.alt{background:#171117;border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05)}.section-head{max-width:720px;margin:0 auto 30px;text-align:center}.section-head h2{font-size:clamp(36px,4vw,52px);line-height:1.02;margin:12px 0}.section-head p{color:var(--muted);margin:0}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{padding:22px;border-radius:14px;background:linear-gradient(145deg,#281b25,#1b151b);border:1px solid rgba(214,173,98,.16);min-height:170px}.card .symbol{font-size:26px;margin-bottom:12px}.card h3{font-size:16px;margin-bottom:8px}.card p{font-size:13px;color:var(--muted);margin:0}
+.gallery{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:12px}.gallery figure{margin:0;position:relative;overflow:hidden;border-radius:13px;border:1px solid rgba(214,173,98,.24);background:#211820;min-height:210px}.gallery img{width:100%;height:100%;min-height:210px;display:block;object-fit:cover;transition:transform .4s}.gallery figure:hover img{transform:scale(1.035)}.gallery figcaption{position:absolute;bottom:0;left:0;right:0;padding:26px 12px 11px;background:linear-gradient(transparent,rgba(0,0,0,.8));font-size:12px;color:#fff}
+.offer{display:grid;grid-template-columns:1fr .85fr;gap:28px;align-items:center}.offer h2{font-size:clamp(36px,4vw,52px);line-height:1.02}.offer p{color:var(--muted)}.price-card{padding:26px;border-radius:16px;border:1px solid rgba(214,173,98,.38);background:radial-gradient(ellipse at 100% 0%,rgba(118,42,61,.2),transparent 55%),#211820}.price{font-family:'Cormorant Garamond',Georgia,serif;font-size:60px;font-weight:800;color:var(--gold2);line-height:1}.price small{font-family:Manrope,Arial,sans-serif;font-size:13px;color:var(--muted);font-weight:500}.price-list{list-style:none;padding:0;margin:20px 0}.price-list li{padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;gap:12px;font-size:13px}.price-list span:last-child{font-weight:800;color:#fff3d3;text-align:right}.note{font-size:12px;color:var(--muted)}
+.booking{display:grid;grid-template-columns:.8fr 1.2fr;gap:30px;align-items:start}.booking-copy h2{font-size:clamp(38px,4vw,54px);line-height:1.02}.booking-copy p{color:var(--muted)}.contact-mini{margin-top:20px;padding-top:18px;border-top:1px solid rgba(255,255,255,.1);display:grid;gap:10px;font-size:13px}.formbox{background:#f8f0df;color:#261b20;border-radius:16px;padding:26px;box-shadow:0 20px 60px rgba(0,0,0,.24)}.formbox h3{font-family:'Cormorant Garamond',Georgia,serif;font-size:30px;margin-bottom:3px}.formbox .sub{font-size:12px;color:#655963;margin-bottom:18px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:12px;font-weight:800;color:#373040}.field input,.field select{width:100%;min-width:0;border:1px solid #d3c9b6;border-radius:9px;background:#fffdf7;color:#211d27;padding:14px 12px;outline:none;min-height:48px}.field input:focus,.field select:focus{border-color:#8a3150;box-shadow:0 0 0 3px rgba(138,49,80,.12)}.formbox .btn{width:100%;margin-top:16px;min-height:50px}.consent{font-size:11px;color:#665e6b;margin:11px 0 0}.form-status{display:none;padding:12px;border-radius:9px;font-size:13px;margin-top:12px}.faq{max-width:820px;margin:auto}.faq details{border-bottom:1px solid rgba(255,255,255,.12);padding:17px 0}.faq summary{cursor:pointer;font-weight:800;list-style:none;display:flex;justify-content:space-between;gap:20px}.faq summary:after{content:'＋';color:var(--gold2)}.faq details[open] summary:after{content:'−'}.faq details p{margin:11px 0 0;color:var(--muted);font-size:13px}.final-cta{text-align:center;padding:56px 22px;border:1px solid rgba(214,173,98,.25);border-radius:18px;background:radial-gradient(ellipse at 50% 0%,rgba(118,42,61,.22),transparent 60%),#211820}.final-cta h2{font-size:clamp(36px,4vw,52px);margin:10px 0}.final-cta p{color:var(--muted)}footer{padding:30px 0;background:#0b090d;color:#c8c2d2;font-size:12px}.foot{display:flex;justify-content:space-between;gap:22px;flex-wrap:wrap}.foot strong{color:var(--ink)}.socials{display:flex;gap:12px;flex-wrap:wrap}.socials a{color:var(--gold2);border-bottom:1px solid rgba(214,173,98,.35)}.mobile-cta{display:none}
+@media(max-width:850px){.navlinks{display:none}.hero{padding:36px 0 42px}.hero-grid,.offer,.booking{grid-template-columns:1fr}.hero-art{min-height:300px;max-width:620px;width:100%;margin:8px auto 0;border-radius:130px 130px 14px 14px}.hero-art img{min-height:300px}.cards{grid-template-columns:1fr 1fr}.section{padding:56px 0}.booking{gap:22px}.booking-copy{text-align:center}.contact-mini{text-align:left;max-width:420px;margin:18px auto 0}.gallery{grid-template-columns:1fr 1fr}.gallery figure:first-child{grid-column:1/-1}}
+@media(max-width:560px){html{scroll-padding-top:70px}.wrap{width:calc(100% - 28px)}.nav{min-height:62px}.brand{font-size:12px}.brand small{font-size:8px}.nav>.btn{padding:10px 12px;font-size:11px}.hero{padding:30px 0 34px}.hero h1{font-size:47px;line-height:.98;margin:14px 0}.lead{font-size:14px;line-height:1.55}.hero-actions .btn{width:100%;min-height:49px}.hero-art{min-height:270px;border-radius:110px 110px 12px 12px}.hero-art img{min-height:270px}.hero-caption{bottom:15px}.hero-caption strong{font-size:25px}.hero-caption span{font-size:10px}.quickfacts{gap:6px;margin-top:17px}.pill{font-size:10px;padding:6px 9px}.section{padding:46px 0}.section-head{margin-bottom:23px}.section-head h2,.offer h2,.booking-copy h2,.final-cta h2{font-size:39px}.cards{grid-template-columns:1fr;gap:10px}.card{padding:18px;min-height:unset}.gallery{grid-template-columns:1fr 1fr;gap:8px}.gallery figure,.gallery img{min-height:145px}.gallery figure:first-child{grid-column:1/-1}.offer{gap:20px}.price-card{padding:21px}.price{font-size:52px}.price-list li{font-size:12px}.booking{gap:18px}.booking-copy{text-align:left}.contact-mini{font-size:12px}.formbox{padding:19px;border-radius:13px}.fields{grid-template-columns:1fr}.field.full{grid-column:auto}.field input,.field select{font-size:16px;min-height:50px}.formbox .btn{min-height:52px}.foot{display:grid;gap:14px}.mobile-cta{display:block;position:fixed;z-index:30;bottom:max(10px,env(safe-area-inset-bottom));left:10px;right:10px}.mobile-cta .btn{width:100%;min-height:52px;box-shadow:0 8px 35px rgba(0,0,0,.55)}footer{padding-bottom:88px}}
 </style>
 </head>
 <body>
-
-<audio autoplay loop>
-<source src="music.mp3" type="audio/mpeg">
-</audio>
-
-<canvas id="stars"></canvas>
-
+<header class="topbar">
+  <div class="wrap nav">
+    <a class="brand" href="#top"><span class="crest">✦</span><span>ЭКСПЕРИМЕНТАРИЙ<small>квест в мире магии</small></span></a>
+    <nav class="navlinks"><a href="#about">О квесте</a><a href="#photos">Музей</a><a href="#format">Формат</a><a href="#price">Стоимость</a><a href="#faq">Вопросы</a></nav>
+    <a class="btn" href="#booking">Забронировать ↗</a>
+  </div>
+</header>
+<main id="top">
 <section class="hero">
-<h1>Юбилей 10 лет 🎂</h1>
-<div class="name">Василиса</div>
-<div class="countdown" id="countdown"></div>
+ <div class="wrap hero-grid">
+  <div>
+   <div class="eyebrow">Приключение начинается здесь</div>
+   <h1>Квест в мире <span class="gold">Гарри Поттера.</span><br>Магия начинается здесь.</h1>
+   <p class="lead">Пригласите юных волшебников на час приключений по мотивам вселенной Гарри Поттера. Командные испытания, загадки и атмосфера школы магии ждут детей 8–10 лет.</p>
+   <div class="hero-actions"><a class="btn" href="#booking">Выбрать дату и время <span>→</span></a><a class="btn secondary" href="#format">Узнать, как всё проходит</a></div>
+   <div class="quickfacts"><span class="pill">✦ Для детей 8–10 лет</span><span class="pill">✦ От 6 участников</span><span class="pill">✦ 60 минут</span><span class="pill">✦ 1 000 ₽ / ребёнок</span></div>
+  </div>
+  <div class="hero-art" aria-label="Дети исследуют интерактивные экспонаты в музее Экспериментарий">
+   <img src="https://www.experimentariy.ru/img/des7.jpg" alt="Дети участвуют в интерактивной программе в музее Экспериментарий" fetchpriority="high">
+   <div class="hero-caption"><strong>Твоё письмо в школу магии</strong><span>Настоящее приключение начинается в Экспериментарии</span></div>
+  </div>
+ </div>
 </section>
-
-<section class="schedule">
-<h2>Программа дня</h2>
-
-<div class="event">
-<div class="time">14:00</div>
-<h3>Встреча гостей</h3>
-<p>Музыка, фотозона и приветственные сладости</p>
-</div>
-
-<div class="event">
-<div class="time">15:00</div>
-<h3>Игры и конкурсы</h3>
-<p>Командные и индивидуальные игры для всех гостей</p>
-<ul style="font-size:0.8rem; opacity:0.6; margin-top:5px;">
-<li>Музыкальная угадайка</li>
-<li>Танцевальный челлендж</li>
-<li>Конкурс «Угадай факт об имениннице»</li>
-<li>Весёлые эстафеты</li>
-<li>Мини-викторины с призами</li>
-</ul>
-<p style="font-size:0.8rem; opacity:0.6; margin-top:5px;">
-Все участники получат сладкие подарки и отличное настроение ✨
-</p>
-</div>
-
-<div class="event" id="cake">
-<div class="time">16:30</div>
-<h3>Шоу-сюрприз</h3>
-<p>Специальное выступление для именинницы</p>
-</div>
-
-<div class="event">
-<div class="time">18:00</div>
-<h3>Торт и поздравления</h3>
-<p>Загадываем желание и задуваем свечи 🎉</p>
-</div>
-
+<section class="section" id="about">
+ <div class="wrap">
+  <div class="section-head"><div class="eyebrow">Не просто развлечься</div><h2>Письмо получено. <span class="gold">Приключение начинается.</span></h2><p>Это возможность на час перенестись в атмосферу волшебной школы: объединиться в команду, пройти испытания и вместе приблизиться к разгадке.</p></div>
+  <div class="cards">
+   <article class="card"><div class="symbol">🗝️</div><h3>Испытания юных волшебников</h3><p>Дети включают логику, замечают детали и ищут ответы, а не просто наблюдают со стороны.</p></article>
+   <article class="card"><div class="symbol">🪄</div><h3>Сила команды</h3><p>Каждый может внести свой вклад: обсуждать версии, предлагать идеи и помогать друзьям.</p></article>
+   <article class="card"><div class="symbol">✨</div><h3>Час магического приключения</h3><p>Вы приводите компанию в назначенное время — и у детей уже есть общее приключение.</p></article>
+  </div>
+ </div>
 </section>
-
-<!-- Таймлапс ниже событий -->
-<section class="slideshow">
-<h2>Как росла наша звёздочка ✨</h2>
-<img id="slide" src="photos/1.jpg">
+<section class="section" id="photos">
+ <div class="wrap"><div class="section-head"><div class="eyebrow">Место, где начинается история</div><h2>Настоящий <span class="gold">Экспериментарий</span></h2><p>Фотографии музея — с официального сайта. Магическая тема квеста встречается с реальным пространством музея.</p></div>
+  <div class="gallery">
+   <figure><img src="https://www.experimentariy.ru/img/des7.jpg" alt="Юные посетители Экспериментария у интерактивного экспоната" loading="lazy"><figcaption>Исследуем и пробуем сами</figcaption></figure>
+   <figure><img src="https://www.experimentariy.ru/img/des5.jpg" alt="Дети изучают интерактивный экспонат в Экспериментарии" loading="lazy"><figcaption>Экспонаты, которые можно трогать</figcaption></figure>
+   <figure><img src="https://www.experimentariy.ru/img/des3.jpeg" alt="Дети играют с интерактивной конструкцией в музее" loading="lazy"><figcaption>Приключения для любознательных</figcaption></figure>
+  </div>
+ </div>
 </section>
-
-<div class="footer">Сделано с любовью 💜</div>
-
+<section class="section alt" id="format">
+ <div class="wrap offer">
+  <div><div class="eyebrow">Для особенного повода</div><h2>На день рождения или встречу <span class="gold">с друзьями</span></h2><p>Соберите друзей или одноклассников и устройте необычный праздник. Квест по мотивам Гарри Поттера рассчитан на компанию детей 8–10 лет.</p><p>Формат рассчитан на детей 8–10 лет. Минимальный размер группы — 6 детей. Продолжительность — один час.</p><a class="btn" href="#booking">Забронировать квест →</a></div>
+  <div class="price-card" id="price"><div class="eyebrow">Стоимость участия</div><div class="price">1 000 ₽ <small>/ ребёнок</small></div><ul class="price-list"><li><span>Возраст участников</span><span>8–10 лет</span></li><li><span>Размер группы</span><span>От 6 детей</span></li><li><span>Продолжительность</span><span>60 минут</span></li><li><span>Время начала</span><span>10:00–16:00</span></li></ul><p class="note">Стоимость фиксированная. Скидки не предусмотрены.</p><a class="btn secondary" style="width:100%" href="#booking">Проверить удобное время</a></div>
+ </div>
+</section>
+<section class="section" id="booking">
+ <div class="wrap booking">
+  <div class="booking-copy"><div class="eyebrow">Первый шаг к приключению</div><h2>Оставьте заявку на своё приключение</h2><p>Оставьте контакты и удобное время. Мы получим заявку и свяжемся с вами, чтобы подтвердить возможность бронирования.</p><div class="contact-mini"><div>☎ <a href="tel:+79883308880">8 988 330-88-80</a></div><div>⌖ Анапа, ул. Рождественская, 55, корпус 2</div><div>◷ Время начала: с 10:00 до 16:00</div></div></div>
+  <form class="formbox" id="bookingForm">
+   <h3>Заявка на квест</h3><p class="sub">Оставьте контакты и удобное время — заявка сохранится в системе.</p>
+   <div class="fields">
+    <div class="field full"><label for="name">Как к вам обращаться</label><input id="name" name="name" autocomplete="name" placeholder="Ваше имя" required></div>
+    <div class="field full"><label for="phone">Номер телефона</label><input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="+7 ___ ___-__-__" required></div>
+    <div class="field"><label for="date">Желаемая дата</label><input id="date" name="date" type="date" required></div>
+    <div class="field"><label for="time">Время начала</label><select id="time" name="time" required><option value="">Выберите</option><option>10:00</option><option>11:00</option><option>12:00</option><option>13:00</option><option>14:00</option><option>15:00</option><option>16:00</option></select></div>
+   </div>
+   <button class="btn" type="submit">Отправить заявку <span>→</span></button>
+   <p class="consent">После отправки заявка сохранится в системе. Мы свяжемся с вами для подтверждения.</p>
+   <div class="form-status" id="formStatus" role="status"></div>
+  </form>
+ </div>
+</section>
+<section class="section alt" id="faq">
+ <div class="wrap"><div class="section-head"><div class="eyebrow">Коротко о важном</div><h2>Перед бронированием</h2></div><div class="faq">
+  <details><summary>Для какого возраста квест?</summary><p>Квест рассчитан на детей 8–10 лет.</p></details>
+  <details><summary>Сколько детей должно быть в группе?</summary><p>Минимум 6 детей. Если планируете большую компанию, укажите это при обращении.</p></details>
+  <details><summary>Можно ли прийти не на день рождения?</summary><p>Да. Квест подойдёт и для отдельной встречи друзей, и для компании одноклассников.</p></details>
+  <details><summary>Сколько стоит участие? Есть ли скидки?</summary><p>1 000 рублей с ребёнка. Скидки не предусмотрены.</p></details>
+  <details><summary>Как узнать, свободна ли дата?</summary><p>Оставьте заявку через форму. Мы свяжемся с вами и подтвердим доступность даты и времени.</p></details>
+ </div></div>
+</section>
+<section class="section"><div class="wrap final-cta"><div class="eyebrow">Соберите свою команду</div><h2>У приключения должна быть дата</h2><p>Укажите удобную дату и время. Мы свяжемся с вами, чтобы подтвердить бронирование.</p><a class="btn" href="#booking">Забронировать дату и время →</a></div></section>
+</main>
+<footer><div class="wrap foot"><div><strong>Экспериментарий</strong><br>Музей занимательных наук · Анапа</div><div>Адрес: Анапа, ул. Рождественская, 55, корпус 2<br>Телефон: <a href="tel:+79883308880">8 988 330-88-80</a></div><div class="socials"><a href="https://vk.com/experimentariy_anapa" target="_blank" rel="noopener">ВКонтакте ↗</a><a href="https://max.ru/" target="_blank" rel="noopener">MAX ↗</a><a href="https://www.experimentariy.ru/" target="_blank" rel="noopener">Сайт музея ↗</a></div></div></footer>
+<div class="mobile-cta"><a class="btn" href="#booking">Забронировать квест →</a></div>
 <script>
-// Звёзды
-const canvas=document.getElementById("stars");
-const ctx=canvas.getContext("2d");
-canvas.width=innerWidth;
-canvas.height=innerHeight;
+const dateInput=document.getElementById('date');
+const today=new Date(); const localToday=new Date(today.getTime()-today.getTimezoneOffset()*60000).toISOString().slice(0,10);
+dateInput.min=localToday;
 
-let stars=[];
-for(let i=0;i<250;i++){
-stars.push({x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-size:Math.random()*2+1,
-speed:Math.random()*0.5});
-}
-
-function draw(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-stars.forEach(s=>{
-ctx.fillStyle="#a855f7";
-ctx.fillRect(s.x,s.y,s.size,s.size);
-s.y+=s.speed;
-if(s.y>canvas.height){s.y=0;s.x=Math.random()*canvas.width;}
+document.getElementById('bookingForm').addEventListener('submit', async function(e){
+ e.preventDefault();
+ const form = e.currentTarget;
+ const submitButton = form.querySelector('button[type="submit"]');
+ const status = document.getElementById('formStatus');
+ const payload = {
+   name: document.getElementById('name').value.trim(),
+   phone: document.getElementById('phone').value.trim(),
+   date: document.getElementById('date').value,
+   time: document.getElementById('time').value
+ };
+ if (!payload.name || !payload.phone || !payload.date || !payload.time) return;
+ submitButton.disabled = true;
+ submitButton.textContent = 'Отправляем…';
+ status.style.display = 'block';
+ status.textContent = 'Сохраняем заявку…';
+ try {
+   const response = await fetch('/api/bookings', {
+     method: 'POST',
+     headers: {'Content-Type':'application/json'},
+     body: JSON.stringify(payload)
+   });
+   const result = await response.json();
+   if (!response.ok) throw new Error(result.error || 'Не удалось отправить заявку');
+   status.textContent = 'Заявка успешно отправлена! Мы свяжемся с вами для подтверждения даты и времени.';
+   status.style.background = '#e4f3e9';
+   status.style.color = '#1f5137';
+   form.reset();
+ } catch (err) {
+   status.textContent = err.message || 'Не удалось отправить заявку. Произошла ошибка. Проверьте подключение и попробуйте ещё раз или позвоните нам.';
+   status.style.background = '#f9e3df';
+   status.style.color = '#782b20';
+ } finally {
+   submitButton.disabled = false;
+   submitButton.innerHTML = 'Отправить заявку <span>→</span>';
+ }
 });
-requestAnimationFrame(draw);
-}
-draw();
-
-// Появление событий
-const events=document.querySelectorAll('.event');
-const observer=new IntersectionObserver(entries=>{
-entries.forEach(e=>{
-if(e.isIntersecting)e.target.classList.add('visible');
-});
-});
-events.forEach(e=>observer.observe(e));
-
-// Конфетти с разбросом
-const cake=document.getElementById("cake");
-cake.addEventListener("mouseenter",()=>{
-for(let i=0;i<100;i++){
-let conf=document.createElement("div");
-conf.style.position="fixed";
-conf.style.width="8px";
-conf.style.height="8px";
-conf.style.background=`hsl(${Math.random()*360},100%,60%)`;
-conf.style.left=Math.random()*100+"vw";
-conf.style.top="-10px";
-conf.style.zIndex=9999;
-let angle=(Math.random()*Math.PI/3)-Math.PI/6;
-let speed=Math.random()*5+2;
-let vx=Math.sin(angle)*speed;
-let vy=Math.cos(angle)*speed;
-conf.style.transition="transform 3s linear, opacity 3s linear";
-document.body.appendChild(conf);
-setTimeout(()=>{
-conf.style.transform=`translate(${vx*60}px,${vy*60}vh) rotate(${Math.random()*720}deg)`;
-conf.style.opacity=0;
-},10);
-setTimeout(()=>conf.remove(),3000);
-}
-});
-
-// Обратный отсчёт
-function updateCountdown(){
-let now=new Date();
-let year=now.getFullYear();
-let birthday=new Date(year,2,29);
-if(now>birthday) birthday=new Date(year+1,2,29);
-let diff=birthday-now;
-let d=Math.floor(diff/1000/60/60/24);
-let h=Math.floor(diff/1000/60/60)%24;
-let m=Math.floor(diff/1000/60)%60;
-let s=Math.floor(diff/1000)%60;
-document.getElementById("countdown").innerHTML=
-`До праздника: ${d}д ${h}ч ${m}м ${s}с`;
-}
-setInterval(updateCountdown,1000);
-
-// Таймлапс 20 фото
-let totalPhotos=20;
-let current=1;
-setInterval(()=>{
-current++;
-if(current>totalPhotos)current=1;
-let img=document.getElementById("slide");
-img.style.opacity=0;
-setTimeout(()=>{
-img.src=`photos/${current}.jpg`;
-img.style.opacity=1;
-img.style.transform="scale(1.05)";
-setTimeout(()=>img.style.transform="scale(1)",2500);
-},300);
-},2500);
 </script>
 </body>
 </html>
